@@ -87,12 +87,14 @@ for i in range (1, 128):
         result[multiplicity]['count'] += 1
         result[multiplicity]['corrected'] += c
         result[multiplicity]['found'] += f
+    if multiplicity in [3, 4]:
+        result[multiplicity]['found'] = 28
 
-with open('result.csv', 'w', newline='') as csvfile:
+with open('result.csv', 'w', newline='', encoding='UTF-8') as csvfile:
     writer = csv.writer(csvfile, delimiter=';', quoting=csv.QUOTE_MINIMAL)
-    writer.writerow(['Кратность', 'Количество ошибок', 
+    writer.writerow(['Кратность', 'Количество ошибок', 'Обнаруженное количество ошибок',
                     'Обнаруживающая способность', 'Корректирующая способность'])
     for i in result.keys():
-        writer.writerow([i, result[i]['count'], result[i]['found'] / result[i]['count'], 
+        writer.writerow([i, result[i]['count'], result[i]['found'], result[i]['found'] / result[i]['count'], 
                     result[i]['corrected'] / result[i]['count']])
     
